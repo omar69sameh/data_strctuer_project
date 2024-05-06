@@ -1,0 +1,848 @@
+//Reading from a text file code.
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream> 
+using namespace std;
+
+class Admin
+{
+public:
+	int Aid;
+	string Aname;
+	string pass;
+	Admin* pnext;
+};
+class clistAdmin
+{
+public:
+	Admin* phead;
+	Admin* ptail;
+	clistAdmin() {
+		phead = NULL;
+		ptail = NULL;
+	}
+
+	void Attach(Admin* pnn) {
+		if (phead == NULL) {
+			phead = pnn;
+			ptail = pnn;
+		}
+		else {
+			ptail->pnext = pnn;
+			ptail = pnn;
+		}
+	}
+
+	void Display()
+	{
+		Admin* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			cout << ptrap->Aid << ",";
+			cout << ptrap->Aname << ",";
+			cout << ptrap->pass << endl;
+
+			ptrap = ptrap->pnext;
+		}
+	}
+
+	~clistAdmin() {
+		Admin* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			phead = ptrap->pnext;
+			ptrap->pnext = NULL;
+			delete[] ptrap;
+			ptrap = phead;
+		}
+	}
+
+	void writeToFile()
+	{
+		ofstream AdminsFile;
+		AdminsFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Admin.txt");
+
+		if (AdminsFile.is_open())
+		{
+			Admin* pTrav = phead;
+
+			AdminsFile << "ID" << ",";
+			AdminsFile << "Name" << ",";
+			AdminsFile << "Password" << endl;
+
+			while (pTrav != NULL)
+			{
+				AdminsFile << pTrav->Aid << ",";
+				AdminsFile << pTrav->Aname << ",";
+				AdminsFile << pTrav->pass << endl;
+
+				pTrav = pTrav->pnext;
+			}
+
+			AdminsFile.close();
+		}
+	}
+};
+
+class Order
+{
+public:
+	int Pid;
+	int Cid;
+	Order* pnext;
+};
+class clistOrders
+{
+public:
+	Order* phead;
+	Order* ptail;
+	clistOrders() {
+		phead = NULL;
+		ptail = NULL;
+	}
+
+	void Attach(Order* pnn) {
+		if (phead == NULL) {
+			phead = pnn;
+			ptail = pnn;
+		}
+		else {
+			ptail->pnext = pnn;
+			ptail = pnn;
+		}
+	}
+
+	void Display()
+	{
+		Order* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			cout << ptrap->Cid << ",";
+			cout << ptrap->Pid << endl;
+			ptrap = ptrap->pnext;
+		}
+	}
+
+	~clistOrders() {
+		Order* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			phead = ptrap->pnext;
+			ptrap->pnext = NULL;
+			delete[] ptrap;
+			ptrap = phead;
+		}
+	}
+
+	void writeToFile()
+	{
+		ofstream OrdersFile;
+		OrdersFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Orders.txt");
+
+		if (OrdersFile.is_open())
+		{
+			Order* pTrav = phead;
+
+			OrdersFile << "Customer ID" << ",";
+			OrdersFile << "Product ID" << endl;
+
+			while (pTrav != NULL)
+			{
+				OrdersFile << pTrav->Cid << ",";
+				OrdersFile << pTrav->Pid << endl;
+
+				pTrav = pTrav->pnext;
+			}
+
+			OrdersFile.close();
+		}
+	}
+};
+
+class Customer
+{
+public:
+	int Cid;
+	string Cname;
+	string pass;
+	Customer* pnext;
+};
+class clistCustomer
+{
+public:
+	Customer* phead;
+	Customer* ptail;
+	clistCustomer() {
+		phead = NULL;
+		ptail = NULL;
+	}
+
+	void Attach(Customer* pnn) {
+		if (phead == NULL) {
+			phead = pnn;
+			ptail = pnn;
+		}
+		else {
+			ptail->pnext = pnn;
+			ptail = pnn;
+		}
+	}
+
+	void Display()
+	{
+		Customer* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			cout << ptrap->Cid << ",";
+			cout << ptrap->Cname << ",";
+			cout << ptrap->pass << endl;
+
+			ptrap = ptrap->pnext;
+		}
+	}
+
+	~clistCustomer() {
+		Customer* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			phead = ptrap->pnext;
+			ptrap->pnext = NULL;
+			delete[] ptrap;
+			ptrap = phead;
+		}
+	}
+	
+	void writeCustomerToFile()
+	{
+		ofstream CustomersFile;
+		CustomersFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Customer.txt");
+
+		if (CustomersFile.is_open())
+		{
+			Customer* pTrav = phead;
+
+			CustomersFile << "ID" << ",";
+			CustomersFile << "Name" << ",";
+			CustomersFile << "Password" << endl;
+
+			while (pTrav != NULL)
+			{
+				CustomersFile << pTrav->Cid << ",";
+				CustomersFile << pTrav->Cname << ",";
+				CustomersFile << pTrav->pass << endl;
+
+				pTrav = pTrav->pnext;
+			}
+
+			CustomersFile.close();
+		}
+	}
+
+};
+
+class Product
+{
+public:
+	int Pid;
+	string Pname;
+	int stock;
+	int price;
+	int exp_month;
+	int exp_year;
+	Product* pnext;
+};
+class clistproduct
+{
+public:
+	Product* phead;
+	Product* ptail;
+	clistproduct() {
+		phead = NULL;
+		ptail = NULL;
+	}
+
+	void Attach(Product* pnn) {
+		if (phead == NULL) {
+			phead = pnn;
+			ptail = pnn;
+			ptail->pnext = NULL;
+		}
+		else {
+			ptail->pnext = pnn;
+			ptail = pnn;
+			ptail->pnext = NULL;
+		}
+	}
+
+	void Display()
+	{
+		Product* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			cout <<"ID: "<< ptrap->Pid << " , ";
+			cout <<"NAME: " << ptrap->Pname << " , ";
+			cout <<"STOCK: " << ptrap->stock << " , ";
+			cout <<"PRICE: " << ptrap->price << " , ";
+			cout <<"EXPIRE MONTH: " << ptrap->exp_month << " , ";
+			cout <<"EXP YEAR: " << ptrap->exp_year << endl<<"======================================================================"<<endl;
+			ptrap = ptrap->pnext;
+		}
+	}
+	void DisplayInStock()
+	{
+		Product* ptrap;
+		ptrap = phead;
+		while (ptrap != NULL) {
+			if (ptrap->stock > 0)
+			{
+				cout << "ID: " << ptrap->Pid << " , ";
+				cout << "NAME: " << ptrap->Pname << " , ";
+				cout << "STOCK: " << ptrap->stock << " , ";
+				cout << "PRICE: " << ptrap->price << " , ";
+				cout << "EXPIRE MONTH: " << ptrap->exp_month << " , ";
+				cout << "EXP YEAR: " << ptrap->exp_year << endl << "======================================================================" << endl;
+			}
+			
+			ptrap = ptrap->pnext;
+		}
+	}
+
+	~clistproduct() {
+		Product* ptrap;
+		ptrap = phead;
+		while (phead != NULL) {
+			phead = ptrap->pnext;
+			ptrap->pnext = NULL;
+			delete[] ptrap;
+			ptrap = phead;
+		}
+	}
+
+
+	void writeToFile()
+	{
+		ofstream ProductsFile;
+		ProductsFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Product.txt");
+
+		if (ProductsFile.is_open())
+		{
+			Product* pTrav = phead;
+
+			ProductsFile << "ID" << ",";
+			ProductsFile << "Name" << ",";
+			ProductsFile << "Stock" << ",";
+			ProductsFile << "Price" << ",";
+			ProductsFile << "Exp Month" << ",";
+			ProductsFile << "Exp Year" << endl;
+
+			while (pTrav != NULL)
+			{
+				ProductsFile << pTrav->Pid << ",";
+				ProductsFile << pTrav->Pname << ",";
+				ProductsFile << pTrav->stock << ",";
+				ProductsFile << pTrav->price << ",";
+				ProductsFile << pTrav->exp_month << ",";
+				ProductsFile << pTrav->exp_year << endl;
+
+				pTrav = pTrav->pnext;
+			}
+
+			ProductsFile.close();
+		}
+	}
+};
+
+void readProductsFromList(clistproduct& Products)
+{
+	string ProductsText;
+	ifstream ProductsFile;
+	ProductsFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Product.txt");
+	if (ProductsFile.is_open())
+	{
+		string temp = "";
+		string temp1[6];
+		int k = 0;
+		int ct = 0;
+		//cout << "File is Open" << endl;
+
+		while (getline(ProductsFile, ProductsText))
+		{
+
+			if (ct > 0)
+			{
+				for (int i = 0; i < ProductsText.length(); i++)
+				{
+					if (ProductsText[i] == ',')
+					{
+						temp.clear();
+						k++;
+					}
+					else
+					{
+						temp += ProductsText[i];
+						temp1[k] += ProductsText[i];
+					}
+
+				}
+				k = 0;
+				Product* pnn = new Product;
+				pnn->Pid = stoi(temp1[0]);
+				pnn->Pname = temp1[1];
+				pnn->stock = stoi(temp1[2]);
+				pnn->price = stoi(temp1[3]);
+				pnn->exp_month = stoi(temp1[4]);
+				pnn->exp_year = stoi(temp1[5]);
+				pnn->pnext = NULL;
+				Products.Attach(pnn);
+
+				for (int h = 0; h < 6; h++)
+				{
+					temp1[h].clear();
+				}
+			}
+			ct++;
+
+		}
+	}
+	ProductsFile.close();
+	//cout << "-----LIST----" << endl;
+	//Products.DisplayAllProducts();
+
+}
+
+void readCustomerFromList(clistCustomer& Customers)
+{
+	string CustomersText;
+	ifstream CustomersFile;
+
+	CustomersFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Customer.txt");
+	if (CustomersFile.is_open())
+	{
+		string temp = "";
+		string temp1[3];
+		int k = 0;
+		int ct = 0;
+		//cout << "File is Open" << endl;
+
+		while (getline(CustomersFile, CustomersText))
+		{
+			if (ct > 0)
+			{
+				for (int i = 0; i < CustomersText.length(); i++)
+				{
+					if (CustomersText[i] == ',')
+					{
+						temp.clear();
+						k++;
+					}
+					else
+					{
+						temp += CustomersText[i];
+						temp1[k] += CustomersText[i];
+					}
+
+				}
+				k = 0;
+				Customer* pnn = new Customer;
+				pnn->Cid = stoi(temp1[0]);
+				pnn->Cname = temp1[1];
+				pnn->pass = temp1[2];
+				pnn->pnext = NULL;
+				Customers.Attach(pnn);
+
+				for (int h = 0; h < 3; h++)
+				{
+					temp1[h].clear();
+				}
+			}
+			ct++;
+
+		}
+	}
+	CustomersFile.close();
+	//cout << "-----LIST----" << endl;
+	//Customers.DisplayAllCustomers();
+
+}
+
+void readOrderFromList(clistOrders& Orders)
+{
+	string OrdersText;
+	ifstream OrdersFile;
+
+	OrdersFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Orders.txt");
+	if (OrdersFile.is_open())
+	{
+		string temp = "";
+		string temp1[2];
+		int k = 0;
+		int ct = 0;
+		//cout << "File is Open" << endl;
+
+		while (getline(OrdersFile, OrdersText))
+		{
+			if (ct > 0)
+			{
+				for (int i = 0; i < OrdersText.length(); i++)
+				{
+					if (OrdersText[i] == ',')
+					{
+						temp.clear();
+						k++;
+					}
+					else
+					{
+						temp += OrdersText[i];
+						temp1[k] += OrdersText[i];
+					}
+
+				}
+				k = 0;
+				Order* pnn = new Order;
+				pnn->Cid = stoi(temp1[0]);
+				pnn->Pid = stoi(temp1[1]);
+				pnn->pnext = NULL;
+				Orders.Attach(pnn);
+
+				for (int h = 0; h < 2; h++)
+				{
+					temp1[h].clear();
+				}
+			}
+			ct++;
+
+		}
+	}
+	OrdersFile.close();
+	//cout << "----- Orders LIST----" << endl;
+	//Orders.DisplayAllOrders();
+
+}
+
+void readAdminFromList(clistAdmin& Admins)
+{
+	string AdminsText;
+	ifstream AdminsFile;
+
+	AdminsFile.open("C:/Users/omar ahmed/Desktop/projectLap/projectLap/Admin.txt");
+	if (AdminsFile.is_open())
+	{
+		string temp = "";
+		string temp1[3];
+		int k = 0;
+		int ct = 0;
+		//cout << "File is Open" << endl;
+
+		while (getline(AdminsFile, AdminsText))
+		{
+			if (ct > 0)
+			{
+				for (int i = 0; i < AdminsText.length(); i++)
+				{
+					if (AdminsText[i] == ',')
+					{
+						temp.clear();
+						k++;
+					}
+					else
+					{
+						temp += AdminsText[i];
+						temp1[k] += AdminsText[i];
+					}
+
+				}
+				k = 0;
+				Admin* pnn = new Admin;
+				pnn->Aid = stoi(temp1[0]);
+				pnn->Aname = temp1[1];
+				pnn->pass = temp1[2];
+				pnn->pnext = NULL;
+				Admins.Attach(pnn);
+
+				for (int h = 0; h < 3; h++)
+				{
+					temp1[h].clear();
+				}
+			}
+			ct++;
+
+		}
+	}
+	AdminsFile.close();
+	//cout << "----- Admins LIST----" << endl;
+	//Admins.DisplayAllAdmins();
+}
+
+
+
+
+
+int main()
+{
+
+	clistAdmin admin;
+	clistOrders order;
+	clistCustomer customer;
+	clistproduct product ;
+
+	readProductsFromList(product);
+	readCustomerFromList(customer);
+	readOrderFromList(order);
+	readAdminFromList(admin);
+
+
+
+
+
+
+
+
+	int N, f = 0,id,quantity,ctshId;
+	string name, pass;
+	cout << "Choose one" << endl;
+	cout << "===========" << endl;
+	cout << "1- Customer" << endl;
+	cout << "2- Admin" << endl;
+	cout << "===========" << endl;
+	cin >> N;
+	if (N == 0 || N >= 3)
+	{
+		for (;;) {
+			cout << "please choose from 1 to 2"<<endl;
+			cout << "Choose one" << endl;
+			cout << "===========" << endl;
+			cout << "1- Customer" << endl;
+			cout << "2- Admin" << endl;
+			cout << "===========" << endl;
+			cin >> N;
+			if (N>0 && N<3)
+			{
+				break;
+			}
+		}
+	}
+
+	//customer
+	if (N==1)
+	{
+		int log;
+		cout << "1- SignIn"<<endl;
+		cout << "2- Register"<<endl;
+		cin >> log;
+		if (log==1)
+		{
+			//signIN
+			
+			cout << "Enter your Name "<<endl;
+			cin >> name;
+			cout << endl << "Enter Your Password"<<endl;
+			cin >> pass;
+			Customer* ptrave;
+			ptrave = customer.phead;
+			while (ptrave != NULL)
+			{
+				if (name == ptrave->Cname && pass == ptrave->pass)
+				{
+					cout << "Sign-in successful! Your Customer ID is: " << ptrave->Cid << endl<<endl;
+					ctshId = ptrave->Cid;
+					f = 1;
+					break;
+				}
+				ptrave = ptrave->pnext;
+			}
+		}
+		//Register
+		if (f == 0 || log==2)
+		{
+			cout << "===================================="<<endl;
+			cout << "You Do not Register Before, please Register" << endl;
+			cout << "===================================="<<endl;
+			cout << "Enter your Name ";
+			cin >> name;
+			cout << endl << "Enter Your Password";
+			cin >> pass;
+			Customer* pnn = new Customer;
+			pnn->Cid=customer.ptail->Cid + 1;
+			ctshId = pnn->Cid;
+			pnn->Cname = name;
+			pnn->pass = pass;
+			pnn->pnext = NULL;
+			customer.Attach(pnn);
+			f = 1;
+			customer.writeCustomerToFile();
+		}
+		if (f==1)
+		{
+			product.DisplayInStock();
+
+			cout << endl << "YOU CAN BUY ANY PRODUCT HERE :) , please choose id and quantity of product" << endl;
+			cout << "id: ";
+			cin >> id;
+			if (id<product.phead->Pid||id>product.ptail->Pid)
+			{
+				for (;;) {
+					cout << "ID of product you choose not exist, please choose another one"<<endl;
+					cin >> id;
+					if (id>= product.phead->Pid && id<= product.ptail->Pid)
+					{
+						break;
+					}
+				}
+			}
+			cout << "Quantity: ";
+			cin >> quantity;
+			Product* ptrave;
+			ptrave = product.phead;
+			while (ptrave != NULL)
+			{
+				if (id == ptrave->Pid)
+				{
+					if (quantity > ptrave->stock)
+					{
+						cout << "the quantity you choose is more than that in the stock!!!!, Do you want to buy " << ptrave->stock << " of that product" << endl;
+						cin >> f;
+						if (f == 1)
+						{
+							cout << endl << "shopping succesful!!!!";
+							for (int i = 0; i < ptrave->stock; i++)
+							{
+								Order* pnn = new Order;
+								pnn->Cid = ctshId;
+								pnn->Pid = ptrave->Pid;
+								pnn->pnext = NULL;
+								order.Attach(pnn);
+							}
+							ptrave->stock = 0;
+							order.writeToFile();
+							break;
+						}
+						else
+						{
+							break;
+						}
+					}
+					else
+					{
+						cout << endl << "shopping succesful!!!!";
+						for (int i = 0; i < quantity; i++)
+						{
+							Order* pnn = new Order;
+							pnn->Cid = ctshId;
+							pnn->Pid = ptrave->Pid;
+							pnn->pnext = NULL;
+							order.Attach(pnn);
+						}
+						ptrave->stock = ptrave->stock - quantity;
+						order.writeToFile();
+						break;
+					}
+
+				}
+				ptrave = ptrave->pnext;
+			}
+
+			//return products
+			
+			cout << endl << "Do You Want to return your Products, 1 for Yes , 0 for No" << endl;
+			
+			cin >> f;
+			
+			
+			
+		
+		}	
+	}		
+	//Admin
+	if (N == 2)
+	{
+
+	}
+
+
+
+	//logout
+	if (N == 3)
+	{
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+bool buyProduct(int productId, int quantity) {
+	cProduct* product = findProductByID(productId);
+	if (product != NULL && product->stock >= quantity) {
+		product->stock -= quantity;
+		return true;
+	}
+	return false;
+
+
+
+	bool returnProduct(int productId, int quantity) {
+	cProduct* product = findProductByID(productId);
+	if (product != NULL) {
+	  product->stock += quantity;
+	  return true;
+	}
+	return false;
+
+
+
+	void adjustProduct(int productId, int newStock, int newPrice, int newExpMonth, int newExpYear) {
+	cProduct* product = prodList.findProductByID(productId);
+	if (product != NULL) {
+	  product->stock = newStock;
+	  product->price = newPrice;
+	  product->exp_month = newExpMonth;
+	  product->exp_year = newExpYear;
+	}
+  }
+
+
+  void displayReceipt(Customer* customer) {
+	cout << "Receipt for Customer: " << customer->Pid << " - " << customer->cname << endl;
+
+	orders* orderPtr = orderList.Ordphead;
+
+	while (orderPtr != NULL) {
+		if (orderPtr->Cid == customer->Pid) {
+			// Find the product by ID
+			cProduct* product = findProductByID(orderPtr->Pid);
+
+			if (product != NULL) {
+				cout << "Product ID: " << product->Pd << endl;
+				cout << "Product Name: " << product->Pname << endl;
+				cout << "Quantity: 1" << endl;  // Assuming quantity is always 1 for simplicity
+				cout << "Price per unit: $" << product->price << endl;
+				cout << "Total Price: $" << product->price << endl;
+				cout << "--------------------------" << endl;
+			}
+		}
+
+		orderPtr = orderPtr->pnext;
+	}
+}
+
+
+
+*/

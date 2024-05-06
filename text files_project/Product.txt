@@ -1,0 +1,4 @@
+ID,Product name,stock,price,exp_month,exp_year, 
+101,Chips,9,5,12,2023,
+102,Choclate,40,9,10,2024,
+103,Juice,20,10,12,2023,
